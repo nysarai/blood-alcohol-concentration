@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <h2>Blood Alcohol Concentration Calculator</h2>
-    <form action="calculate_bac.php" method="POST">
+    <form method="POST">
       <label for="weight">Weight:</label>
       <input type="number" id="weight" name="weight" placeholder="Enter your weight" required>
 
@@ -43,8 +43,36 @@
     </form>
 
     <div class="output-wrapper">
-      <div> Your Blood Concentration is: <span>0.08%</span></div>
-      <div> Safe to drive </div>
+      <div> Your Blood Concentration is:</div>
+      <?php
+      $weight = $_POST['weight'];
+      $unit= $_POST['unit'];
+      $gender = $_POST['gender'];
+      $drinks = $_POST['drinks'];
+      $alcohol_content= $_POST['alcohol_content'];
+      $time_elapsed = $_POST['time_elapsed'];
+
+  
+
+      if($gender == 'female'){
+          $gender= 0.66;
+      }
+      else{
+          $gender=0.73;
+      }      
+      // $b = $weight*$gender;
+      $result = (($alcohol_content * 5.14) / ($weight * $gender)) - (0.015 * $time_elapsed);
+
+      echo "BAC= ". $result;
+
+            if ($result = 0.08){
+            
+              echo "Safe to drive";}
+              else{
+                
+              echo "Not safe to drive";
+              }
+       ?>
     </div>
   </div>
 </body>
